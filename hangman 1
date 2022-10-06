@@ -1,0 +1,50 @@
+
+word_options = ["apple", "banana", "strawberry", "pineapple", "mango", "grape", "pear", "watermelon", "kiwi", "apricot", "cranberry", "avocado", "cherry", "grapefruit", "plum",
+"raspberry", "blueberry", "blackberry", "honeydew", "persimmon"]
+import random 
+number = random.randint(0, 20)
+word = word_options[number]
+
+def Convert(string):
+    list1 = []
+    list1[:0] = string
+    return list1
+#this code is not mine lmao T^T
+
+letters = (Convert(word))
+letters2 = letters
+guess = ""
+count = len(word)
+listA = Convert((count*"_"))
+position = 0
+counter = 10
+print("\nWelcome to guess the word!\nThe category is fruits.")
+for x in listA:
+            print(x, end="")
+
+while ("_" in listA ) == True and counter != 0:
+    guess = input("\nEnter a letter to guess: ")
+    print(f"\nYou guessed the letter '{guess}'.")
+    if guess in letters2:
+        position = letters.index(guess)
+        if listA[position] != "_":
+            position = letters.index(guess, position+1)
+        listA.insert(position, guess)
+        listA.pop(position+1)
+        for x in listA:
+            print(x, end="")
+        letters2.remove(guess)
+        letters = (Convert(word))
+    else:
+        print("wrong guess!")
+        counter-= 1
+        for x in listA:
+            print(x, end="")
+    
+
+if counter == 0:
+    print(f"\nYou failed to guess correctly. The word was {word}")
+else: 
+    print("\nYou guessed all the letters!")
+
+#end :D

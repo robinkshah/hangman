@@ -1,0 +1,106 @@
+
+word_options = ["apple", "banana", "strawberry", "pineapple", "mango", "grape", "pear", "watermelon", "kiwi", "apricot", "cranberry", "avocado", "cherry", 
+"grapefruit", "plum", "raspberry", "blueberry", "blackberry", "honeydew", "persimmon", "dragonfruit", "durian", "jackfruit", "guava", "lemon", "lychee", "orange", "tangerine",
+"papaya", "passionfruit", "pomelo", "starfruit", ]
+import random 
+number = random.randint(0, (len(word_options)-1))
+word = word_options[number]
+
+def Convert(string):
+    list1 = []
+    list1[:0] = string
+    return list1
+#this code is not mine lmao T^T 
+
+#set variables
+letters = (Convert(word))
+letters2 = letters
+guess = ""
+count = len(word)
+listA = Convert((count*"_"))
+position = 0
+counter = 6
+#into display
+print("""\n
+────────╔╗
+────────║║
+╔╗╔╗╔╦══╣║╔══╦══╦╗╔╦══╗
+║╚╝╚╝║║═╣║║╔═╣╔╗║╚╝║║═╣
+╚╗╔╗╔╣║═╣╚╣╚═╣╚╝║║║║║═╣  ▀█▀ █▀█
+─╚╝╚╝╚══╩═╩══╩══╩╩╩╩══╝  ░█░ █▄█
+
+██╗░░██╗░█████╗░███╗░░██╗░██████╗░███╗░░░███╗░█████╗░███╗░░██╗
+██║░░██║██╔══██╗████╗░██║██╔════╝░████╗░████║██╔══██╗████╗░██║
+███████║███████║██╔██╗██║██║░░██╗░██╔████╔██║███████║██╔██╗██║
+██╔══██║██╔══██║██║╚████║██║░░╚██╗██║╚██╔╝██║██╔══██║██║╚████║
+██║░░██║██║░░██║██║░╚███║╚██████╔╝██║░╚═╝░██║██║░░██║██║░╚███║
+╚═╝░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝░╚═════╝░╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝\n\nThe category is fruits.""")
+for x in listA:
+    print( x, end="")
+
+#main body
+
+while ("_" in listA ) == True and counter != 0:
+    guess = input("\nEnter a letter to guess: ")
+    print(f"\nYou guessed the letter '{guess}'.")
+    if guess in letters2:
+        position = letters.index(guess)
+        #for repeating letters
+        while listA[position] != "_":
+            position = letters.index(guess, position+1)
+        listA.insert(position, guess)
+        listA.pop(position+1)
+        for x in listA:
+            print(x, end="")
+        letters2.remove(guess)
+        letters = (Convert(word)) #need to add this part in for some reason? or else letters becomes the same as letters2 i still dont know why
+    else:
+        print("wrong guess!")
+        counter-= 1
+        for x in listA:
+            print(x, end="")
+        #hangman drawings
+        if counter == 5:
+            print(" \n______\n |/  |\n |\n |\n |\n |\n_|______")
+        elif counter == 4:
+            print("\n_______\n |/  |\n |  (_)\n |\n |\n |\n_|______")
+        elif counter == 3:
+            print("\n_______\n |/  |\n |  (_)\n |   |\n |\n |\n_|______")
+        elif counter == 2:
+            print("\n_______\n |/  |\n |  (_)\n |  \\|/\n |\n |\n_|______")
+        elif counter == 1:
+            print("\n_______\n |/  |\n |  (_)\n |  \\|/\n |   |\n |\n_|______")
+        elif counter == 0:
+            print("\n_______\n |/  |\n |  (_)\n |  \\|/\n |   |\n |  / \\\n_|______")
+
+#ending message
+if counter == 0:
+    print(f"""\n
+    
+██╗░░░██╗░█████╗░██╗░░░██╗  ███████╗░█████╗░██╗██╗░░░░░███████╗██████╗░  ██╗░░░░██╗
+╚██╗░██╔╝██╔══██╗██║░░░██║  ██╔════╝██╔══██╗██║██║░░░░░██╔════╝██╔══██╗  ╚═╝░░░██╔╝
+░╚████╔╝░██║░░██║██║░░░██║  █████╗░░███████║██║██║░░░░░█████╗░░██║░░██║  ░░░░░██╔╝░
+░░╚██╔╝░░██║░░██║██║░░░██║  ██╔══╝░░██╔══██║██║██║░░░░░██╔══╝░░██║░░██║  ░░░░██╔╝░░
+░░░██║░░░╚█████╔╝╚██████╔╝  ██║░░░░░██║░░██║██║███████╗███████╗██████╔╝  ██╗██╔╝░░░
+░░░╚═╝░░░░╚════╝░░╚═════╝░  ╚═╝░░░░░╚═╝░░╚═╝╚═╝╚══════╝╚══════╝╚═════╝░  ╚═╝╚═╝░░░░ \n\t\t\t\tThe word was {word}.""")
+else: 
+    print("""\n\n\n    
+    
+░█████╗░░█████╗░███╗░░██╗░██████╗░██████╗░░█████╗░████████╗██╗░░░██╗██╗░░░░░░█████╗░████████╗██╗░█████╗░███╗░░██╗░██████╗
+██╔══██╗██╔══██╗████╗░██║██╔════╝░██╔══██╗██╔══██╗╚══██╔══╝██║░░░██║██║░░░░░██╔══██╗╚══██╔══╝██║██╔══██╗████╗░██║██╔════╝
+██║░░╚═╝██║░░██║██╔██╗██║██║░░██╗░██████╔╝███████║░░░██║░░░██║░░░██║██║░░░░░███████║░░░██║░░░██║██║░░██║██╔██╗██║╚█████╗░
+██║░░██╗██║░░██║██║╚████║██║░░╚██╗██╔══██╗██╔══██║░░░██║░░░██║░░░██║██║░░░░░██╔══██║░░░██║░░░██║██║░░██║██║╚████║░╚═══██╗
+╚█████╔╝╚█████╔╝██║░╚███║╚██████╔╝██║░░██║██║░░██║░░░██║░░░╚██████╔╝███████╗██║░░██║░░░██║░░░██║╚█████╔╝██║░╚███║██████╔╝
+░╚════╝░░╚════╝░╚═╝░░╚══╝░╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░░╚═════╝░╚══════╝╚═╝░░╚═╝░░░╚═╝░░░╚═╝░╚════╝░╚═╝░░╚══╝╚═════╝░  \n\n\t\t\t\t\tYou guessed all the letters!\n\n""")
+    
+
+#end :D
+
+#hangman drawing 
+"""print(" ______\n |/  |\n |\n |\n |\n |\n_|______")
+print("_______\n |/  |\n |  (_)\n |\n |\n |\n_|______")
+print("_______\n |/  |\n |  (_)\n |   |\n |\n |\n_|______")
+print("_______\n |/  |\n |  (_)\n |  \\|/\n |\n |\n_|______")
+print("_______\n |/  |\n |  (_)\n |  \\|/\n |   |\n |\n_|______")
+print("_______\n |/  |\n |  (_)\n |  \\|/\n |   |\n |  / \\\n_|______")"""
+#testart from https://fsymbols.com/text-art/ 
